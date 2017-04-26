@@ -2,6 +2,7 @@ from bottle import *
 from lxml import etree
 import requests
 import os
+from sys import argv
 
 futbolkey = os.environ["futbolkey"]
 
