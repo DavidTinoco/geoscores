@@ -1,1 +1,1 @@
-web: python ./eventfullJson.py $PORT
+web: python ./geoscores.py $PORT
