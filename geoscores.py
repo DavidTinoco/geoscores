@@ -38,22 +38,42 @@ def clasificacion2():
         return template("clasificacion2.tpl", doc=doc)
 
 
-@post('/resultados')
+@post('/localizados')
 def resultado():
     liga = request.forms.get('liga')
     jornada = request.forms.get('jornada')
-    url_base = "http://api.eventful.com/rest"
-    k=open("key.txt","r")
-    key = k.readline()
-    k.close()
-    payload = {'app_key':key, 'keywords':cate,'location':city,'date':'Future'}
-    r = requests.get(url_base + '/events/search', params=payload)
+    url_base_mapa="maps.google.com/maps/api/geocode/xml"
+    url_base_futbol = "http://apiclient.resultados-futbol.com/scripts/api/api.php"
+    payload_futbol = {'key':futbolkey, 'format':'xml','req':'matchs','league':liga, 'round':jornada}
+    latitud=[]
+    longitud=[]
+    local=[]
+    visitante=[]
+    fecha=[]
+    hora=[]
+    resultado=[]
+    r = requests.get(url_base_futbol, params=payload_futbol)
     if r.status_code == 200:
         doc = etree.fromstring(r.text.encode('utf-8'))
-        return template("resultados.tpl",doc=doc,city=city,cate=cate)
+        for l,v,f,h,m,q in zip(doc.xpath("//local"),doc.xpath("//visitor"),doc.xpath("//date"),doc.xpath("//hour"),doc.xpath("//minute"),doc.xpath("//result")):
+            busqueda = 'Estadio+'+l.text.replace(" ","+")
+            s = requests.get(url_base_mapa+'?address='+busqueda)
+            doc2 = etree.fromstring(s.text.encode('utf-8'))
+            latitud.append(doc2.xpath("//geometry/lat").text)
+            longitud.append(doc2.xpath("//geometry/lng").text)
+            local.append(l.text)
+            visitante.append(v.text)
+            fecha.append(f.text)
+            hora.append(h.text+":"+m.text)
+            resultado.append(q.text)
+            print latitud
+
+        return template("localizados.tpl",lat=latitud, lng=longitud, local=local, visitante=visitante, fecha=fecha, hora=hora, resultado=resultado)
+    else:
+        return template("jornadanotfound.tpl")
 
 @route('/static/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='static')
 
-run(host='0.0.0.0', port=argv[1])
+run(host='0.0.0.0', port=8081)

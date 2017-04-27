@@ -1,5 +1,5 @@
 %include('header.tpl')
-<form action="/resultado" method="post">
+<form action="/localizados" method="post">
 	<label>Liga: </label>
 	<select name "liga">
 		<option selected value="0">Elija una liga</option>
