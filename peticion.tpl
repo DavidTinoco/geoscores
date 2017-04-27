@@ -6,10 +6,8 @@
 		<option value="1">Liga Santander</option>
 		<option value="2">Liga Adelante</option>
 	</select>
-	</br>
     <label>Jornada: </label>
-    <INPUT type="text" name="jornada" size="2">
-    </br>
+    <INPUT type="number" min='1' max='42' name="jornada" size="2" required/><br>
     <INPUT type="submit" value="Consultar">
 </form>
 %include('foot.tpl')

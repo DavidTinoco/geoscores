@@ -43,10 +43,10 @@ def clasificacion2():
 
 #Pagina en la cual aparecera la jornada Geolocalizada
 @post('/localizados')
-def resultado():
+def localizados():
     #Recibimos los parametros liga y jornada que el usario desea geolocalizar
-    liga = request.forms.get('liga')
-    jornada = request.forms.get('jornada')
+    liga = "1"
+    jornada = "20"
     #Url's base de las apis a utilizar en esta consulta
     url_base_mapa="http://maps.google.com/maps/api/geocode/xml?address="
     url_base_futbol = "http://apiclient.resultados-futbol.com/scripts/api/api.php"
