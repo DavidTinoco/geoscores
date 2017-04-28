@@ -45,8 +45,8 @@ def clasificacion2():
 @post('/localizados')
 def localizados():
     #Recibimos los parametros liga y jornada que el usario desea geolocalizar
-    liga = "1"
-    jornada = "20"
+    liga = request.forms.get('liga')
+    jornada = request.forms.get('jornada')
     #Url's base de las apis a utilizar en esta consulta
     url_base_mapa="http://maps.google.com/maps/api/geocode/xml?address="
     url_base_futbol = "http://apiclient.resultados-futbol.com/scripts/api/api.php"
@@ -73,10 +73,10 @@ def localizados():
             s = requests.get(url_base_mapa+busqueda)
             doc2 = etree.fromstring(s.text.encode('utf-8'))
             #Vamos almacenando en las listas los valores que luego utilizaremos
-            latitud.append(doc2.xpath("//geometry/location/lat")[0].text)
-            longitud.append(doc2.xpath("//geometry/location/lng")[0].text)
-            local.append(l.text[1:])
-            visitante.append(v.text[1:])
+            latitud.append(float(doc2.xpath("//geometry/location/lat")[0].text))
+            longitud.append(float(doc2.xpath("//geometry/location/lng")[0].text))
+            local.append(l.text[1:].encode("utf-8"))
+            visitante.append(v.text[1:].encode("utf-8"))
             fecha.append(f.text[1:])
             hora.append(h.text[1:]+":"+m.text[1:])
             resultado.append(q.text[1:])

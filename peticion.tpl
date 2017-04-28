@@ -1,7 +1,7 @@
 %include('header.tpl')
 <form action="/localizados" method="post">
 	<label>Liga: </label>
-	<select name "liga">
+	<select name = "liga">
 		<option selected value="0">Elija una liga</option>
 		<option value="1">Liga Santander</option>
 		<option value="2">Liga Adelante</option>
