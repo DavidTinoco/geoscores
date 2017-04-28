@@ -20,22 +20,22 @@
     </style>
   </head>
   <body>
-      <div class="wrapper row1">
-    <header id="header" class="drop">
-      <div id="hgroup">
-        <h1><a href="/">Geoscores</a></h1>
-        <h2>Geolocalización de partidos de la liga</h2>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/clasificacion/ligasantander">Liga Santander</a></li>
-          <li><a href="/clasificacion/liga123">Liga 1|2|3</a></li>
-           <li><a href="/localizalo">Localizalo</a></li>
-         </ul>
-       </nav>
-     </header>
-   </div>
+    <div class="wrapper row1">
+      <header id="header" class="drop">
+        <div id="hgroup">
+          <h1><a href="/">Geoscores</a></h1>
+          <h2>Geolocalización de partidos de la liga</h2>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/clasificacion/ligasantander">Liga Santander</a></li>
+            <li><a href="/clasificacion/liga123">Liga 1|2|3</a></li>
+            <li><a href="/localizalo">Localizalo</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
     <div id="map"></div>
     <script>
           function initMap() {
@@ -76,4 +76,11 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSwXLHcj1T9gp7yIxVqS6dyVJc_t7F-Zw&callback=initMap">
     </script>
-%include('foot.tpl')
+    <div class="wrapper row3">
+      <footer id="footer" class="clear">
+        <p class="fl_left"><a href="http://www.twitter.com/davtincas">Twitter Desarrollador</a></p>
+        <p class="fl_right">Web para LM</p>
+      </footer>
+    </div>
+  </body>
+  </html>
