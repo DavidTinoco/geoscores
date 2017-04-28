@@ -76,5 +76,4 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSwXLHcj1T9gp7yIxVqS6dyVJc_t7F-Zw&callback=initMap">
     </script>
-  </body>
-</html>
+%include('foot.tpl')
