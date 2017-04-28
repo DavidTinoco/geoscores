@@ -10,6 +10,7 @@
        * element that contains the map. */
       #map {
         height: 100%;
+        width: 80%
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
