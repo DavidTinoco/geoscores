@@ -10,8 +10,8 @@
 	%for i,j,n in zip(doc.xpath("//team"), doc.xpath("//points"),xrange(50)):
 	<tr>
 		<td align="right">{{n+1}}</td>
-		<td align="left">{{i.text}}</td>
-		<td align="right">{{j.text}}</td>
+		<td align="left">{{i.text[1:]}}</td>
+		<td align="right">{{j.text[1:]}}</td>
 	</tr>
 	%end
 </table>
