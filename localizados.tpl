@@ -59,21 +59,21 @@
         function addMarker(feature) {
           var marker = new google.maps.Marker({
             position: feature.position,
-            infowindow: feature.ventana,
+            // infowindow: feature.ventana,
             map: map
           });
         }
 
     for (var i=0; i < local.length; i++) {
       features[i]={
-        position: new google.maps.LatLng(lat[i],lng[i]),
-        ventana: new google.maps.InfoWindow({
-          content:'<div id="content">'+
-          '<p>'+local[i]+' vs '+visitante[i]+'</p>'+
-          '<p>'+fecha[i]+' a las '+hora[i]+'</p>'+
-          '<p>'+resultado[i]+'</p>'+
-          '</div>'
-        });
+        position: new google.maps.LatLng(lat[i],lng[i])
+        // ventana: new google.maps.InfoWindow({
+        //   content:'<div id="content">'+
+        //   '<p>'+local[i]+' vs '+visitante[i]+'</p>'+
+        //   '<p>'+fecha[i]+' a las '+hora[i]+'</p>'+
+        //   '<p>'+resultado[i]+'</p>'+
+        //   '</div>'
+        // });
       };
     }
 
