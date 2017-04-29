@@ -69,7 +69,10 @@ def localizados():
         #Vamos a necesitar el equipo local, visitante, la fecha y hora y el resultado
         for l,v,f,h,m,q in zip(doc.xpath("//local"),doc.xpath("//visitor"),doc.xpath("//date"),doc.xpath("//hour"),doc.xpath("//minute"),doc.xpath("//result")):
             #Necesitamos las coordenadas del estadio, para ello haremos la consulta a Google Maps del Estadio "local"
-            busqueda = 'Estadio+'+l.text.replace(" ","+")[1:]
+            if l.text[1:] == 'Sporting':
+                busqueda = 'Estadio+Sporting+Gijon'
+            else:
+                busqueda = 'Estadio+'+l.text.replace(" ","+")[1:]
             s = requests.get(url_base_mapa+busqueda)
             doc2 = etree.fromstring(s.text.encode('utf-8'))
             #Vamos almacenando en las listas los valores que luego utilizaremos
@@ -77,7 +80,7 @@ def localizados():
             longitud.append(float(doc2.xpath("//geometry/location/lng")[0].text))
             local.append(l.text[1:].encode("utf-8"))
             visitante.append(v.text[1:].encode("utf-8"))
-            fecha.append(f.text[1:])
+            fecha.append(f.text[-2:]+"/"+f.text[-5:-2]+f.text[1:5])
             hora.append(h.text[1:]+":"+m.text[1:])
             resultado.append(q.text[1:])
         #Le pasamos a la pagina los parametros que va a necesitar para formarla    
