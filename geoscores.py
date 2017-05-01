@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 from bottle import *
 from lxml import etree
 import requests
@@ -81,7 +82,7 @@ def localizados():
             #Necesitamos las coordenadas del estadio, para ello haremos la consulta a Google Maps del Estadio "local"
             if l.text[1:] == 'Sporting':
                 busqueda = 'Estadio+Sporting+Gijon'
-            elif l.tex[1:] =='Deportivo':
+            elif l.text[1:] =='Deportivo':
                 busqueda = 'Estadio+Deportivo+Coruña'
             else:
                 busqueda = 'Estadio+'+l.text.replace(" ","+")[1:]

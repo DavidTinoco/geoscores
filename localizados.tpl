@@ -71,6 +71,7 @@
       '<p align="center">'+local[i]+' vs '+visitante[i]+'</p>'+
       '<p align="center">'+fecha[i]+' a las '+hora[i]+'</p>'+
       '<p align="center">'+resultado[i]+'</p>'+
+      '<p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text='+'El%20día%20'+fecha[i]+'%20juegan%20'+local[i]+'%20y%20'+visitante[i]+'%20%23geoscore'+'">Tweet</a></p>'+
       '</div>');
             infowindow.open(map,marker);
           }
