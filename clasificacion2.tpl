@@ -1,6 +1,11 @@
 %include('header.tpl')
 <h3> Clasificación Liga 1|2|3 </h3>
-<h2 align="center"> Jornada Actual</h2>
+<form action="/clasificacion/liga123" method="post">
+    <label>Jornada: </label>
+    <INPUT type="number" min='1' max='42' name="jornada" size="2" required/><br>
+    <INPUT type="submit" value="Consultar">
+</form>
+<h2 align="center"> Jornada {{jornada}}</h2>
 <table class ="wrapper row3" align="center">
 	<tr>
 		<td></td>
