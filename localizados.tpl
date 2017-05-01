@@ -71,7 +71,7 @@
       '<p align="center">'+local[i]+' vs '+visitante[i]+'</p>'+
       '<p align="center">'+fecha[i]+' a las '+hora[i]+'</p>'+
       '<p align="center">'+resultado[i]+'</p>'+
-      '<a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>'+
+      '<p><a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a></p>'+
       '</div>');
             infowindow.open(map,marker);
           }

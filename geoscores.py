@@ -81,6 +81,8 @@ def localizados():
             #Necesitamos las coordenadas del estadio, para ello haremos la consulta a Google Maps del Estadio "local"
             if l.text[1:] == 'Sporting':
                 busqueda = 'Estadio+Sporting+Gijon'
+            elif l.tex[1:] =='Deportivo':
+                busqueda = 'Estadio+Deportivo+Coruña'
             else:
                 busqueda = 'Estadio+'+l.text.replace(" ","+")[1:]
             s = requests.get(url_base_mapa+busqueda)
