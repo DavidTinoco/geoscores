@@ -52,6 +52,7 @@ html,body {
 	float: right;
 }
 .header-middle {
+	background: black;
 	padding: 1em 0;
 }
 .header-top-right form input[type="text"] {
@@ -927,11 +928,11 @@ ul.social-slide li i.mac{
   font-family: 'PoiretOne-Regular';
   font-size: 50px;
   text-decoration: none;
-  color: #FFFFFF;
+  color: #1CD5B5;
 }
 .footer-logo a:hover{
 	text-decoration:none;
-	color:#FFFFFF;
+	color:#FFFBBB;
 }
 .footer-nav ul li:nth-child(6) {
   border-right: none;
@@ -1829,7 +1830,7 @@ font-size: 23px;
 		width: 66%;
 	}
 	.header-middle-logo img {
-		width: 100%;
+		width: 50%;
 	}
 	span.menu {
 		display: block;
@@ -2648,4 +2649,80 @@ font-size: 23px;
 	.footer-logo a {
 		font-size: 43px;
 	}
+}
+table { 
+  width: 750px; 
+  border-collapse: collapse; 
+  margin:50px auto;
+  }
+
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+  }
+
+th { 
+  background: #3498db; 
+  color: white; 
+  font-weight: bold; 
+  }
+
+td, th { 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+  font-size: 18px;
+  }
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 600px),
+(min-device-width: 600px) and (max-device-width: 600px)  {
+
+  table { 
+      width: 100%; 
+  }
+
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr { 
+    display: block; 
+  }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  tr { border: 1px solid #ccc; }
+  
+  td { 
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee; 
+    position: relative;
+    padding-left: 50%; 
+  }
+
+  td:before { 
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+    /* Label the data */
+    content: attr(data-column);
+
+    color: #000;
+    font-weight: bold;
+  }
+
 }
