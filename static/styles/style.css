@@ -52,6 +52,7 @@ html,body {
 	float: right;
 }
 .header-middle {
+	background: black;
 	padding: 1em 0;
 }
 .header-top-right form input[type="text"] {
@@ -846,7 +847,6 @@ ul.social-slide li i.mac{
 }
 /*-- footer --*/
 .footer{
-  height: 80%;
   padding: 1em 0;
   background: #CBCBCB;
 }
