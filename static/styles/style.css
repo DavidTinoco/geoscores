@@ -52,7 +52,6 @@ html,body {
 	float: right;
 }
 .header-middle {
-	background: black;
 	padding: 1em 0;
 }
 .header-top-right form input[type="text"] {

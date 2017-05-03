@@ -1,8 +1,7 @@
 %include('header.tpl')
-<h3> Bienvendido a GeoScores </h3>
-<p>
-	Tu web para mantenerte al día de la clasifiación y resultados de las principales ligas españolas
-</p>
+<div class="article">
+	<h3> Bienvendido a GeoScores </h3>
+</div>
 <div class = "match">
 	<div class = "container">
 		<div class="match-table">

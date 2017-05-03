@@ -5,8 +5,8 @@
     <INPUT type="number" min='1' max='42' name="jornada" size="2" required/><br>
     <INPUT type="submit" value="Consultar">
 </form>
-<div class="copyright">
-	<h2> Jornada {{jornada}}</h2>
+<div class="article">
+	<h3> Jornada {{jornada}}</h3>
 </div>
 <table>
 	<tr>
