@@ -3,7 +3,7 @@
 <p>
 	Tu web para mantenerte al día de la clasifiación y resultados de las principales ligas españolas
 </p>
-% for l,v,f,h,m in zip(doc.xpath("//local"),doc.xpath("//visitor"),doc.xpath("//date"),doc.xpath("//hour"),doc.xpath("//minute")):
+% for l,v,f,h,m in zip(doc.xpath("//local"),doc.xpath("//visitor"),doc.xpath("//competition_name"),doc.xpath("//hour"),doc.xpath("//minute")):
 <div class="match-table">
 	<div class="table-hedding">
 		<h3>{{f.text[1:]}}</h3>
