@@ -5,18 +5,20 @@
     <INPUT type="number" min='1' max='38' name="jornada" size="2" required/><br>
     <INPUT type="submit" value="Consultar">
 </form>
-<h2 align="center"> Jornada {{jornada}}</h2>
-<table class ="wrapper row3" align="center">
+<div class="copyright">
+	<h2> Jornada {{jornada}}</h2>
+</div>
+<table>
 	<tr>
-		<td></td>
-		<td width="200">Equipo</td>
+		<td>Pts.</td>
+		<td>Equipo</td>
 		<td>Puntos</td>
 	</tr>
 	%for i,j,n in zip(doc.xpath("//team"), doc.xpath("//points"),xrange(50)):
 	<tr>
-		<td align="right">{{n+1}}</td>
-		<td align="left">{{i.text[1:]}}</td>
-		<td align="right">{{j.text[1:]}}</td>
+		<td>{{n+1}}</td>
+		<td>{{i.text[1:]}}</td>
+		<td>{{j.text[1:]}}</td>
 	</tr>
 	%end
 </table>
