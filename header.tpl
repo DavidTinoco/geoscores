@@ -22,6 +22,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         padding: 0;
       }
     </style>
+  <link rel="shortcut icon" type="image/x-icon" href="/static/images/fav-icon.png" />
 <title>GeoScores</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
