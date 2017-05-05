@@ -4,10 +4,48 @@ from lxml import etree
 import requests
 import os
 from sys import argv
+from requests_oauthlib import OAuth1
+from urlparse import parse_qs
+
+REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token"
+AUTHENTICATE_URL = "https://api.twitter.com/oauth/authenticate?oauth_token="
+ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token"
 
 futbolkey = os.environ["futbolkey"]
+twitterkey = os.environ["twitterkey"]
+twittersecret = os.environ["twittersecret"]
+
+tokens = {}
 
 url_base = 'http://apiclient.resultados-futbol.com/scripts/api/api.php'
+
+def get_request_token():
+    oauth = OAuth1(twitterkey, 
+        client_secret = twittersecret,
+        )
+    r = requests.post(url=REQUEST_TOKEN_URL,auth=oauth)
+    credentials = parse_qs(r.content)
+    tokens["request_token"] = credentials.get('oauth_token')[0]
+    tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
+
+def get_access_token:
+    oauth = OAuth1(twitterkey,
+        client_secret=twittersecret,
+        resource_owner_key = tokens["request_token"],
+        resource_owner_secret = tokens["request_token_secret"],
+        verifier=tokens["verifier"],)
+    r = requests.post(url=ACCESS_TOKEN_URL,auth=oauth)
+    credentials = parse_qs(r.content)
+    tokens["request_token"] = credentials.get('oauth_token')[0]
+    tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
+
+def send_oauth(tokens):
+    oauth = OAuth1(twitterkey,
+        client_secret=twittersecret,
+        resource_owner_key=tokens['access_token'],
+        resource_owner_secret=tokens['access_token_secret'])
+
+
 
 #Pagina de inicio de la aplicacion
 @route('/')
