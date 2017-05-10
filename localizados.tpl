@@ -6,10 +6,10 @@
       var lng = {{!lng}};
       var local = {{!local}};
       var visitante = {{!visitante}};
-      var fecha = {{!fecha}};
+      var fecha = {{!fecha}}; 
       var hora = {{!hora}};
       var resultado = {{!resultado}};
-      var spain =  new google.maps.LatLng(39.996775,-4.203790);
+      var spain = new google.maps.LatLng(39.996775,-4.203790);
       var map;
       var features = [];
       map = new google.maps.Map(document.getElementById('map'), {
@@ -31,7 +31,11 @@
       '<p align="center">'+local[i]+' vs '+visitante[i]+'</p>'+
       '<p align="center">'+fecha[i]+' a las '+hora[i]+'</p>'+
       '<p align="center">'+resultado[i]+'</p>'+
-      '<p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text='+'El%20día%20'+fecha[i]+'%20juegan%20'+local[i]+'%20y%20'+visitante[i]+'%20%23geoscore'+'">Tweet</a></p>'+
+      '<form action="/tweet" method=post>'+
+      '<input type="hidden" name="cuerpo" value="El '+local[i]+' vs '+visitante[i]+
+      ' se juega/jugó el '+fecha[i]+' a las '+hora[i]+' con un resultado de '+resultado[i]+'."/>'+
+      '<input type="submit" class="button" value="Twitit"/>'+
+      '</form>'+
       '</div>');
             infowindow.open(map,marker);
           }

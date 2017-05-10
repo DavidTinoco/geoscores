@@ -28,7 +28,7 @@ def get_request_token():
     tokens["request_token"] = credentials.get('oauth_token')[0]
     tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
 
-def get_access_token:
+def get_access_token():
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
         resource_owner_key = tokens["request_token"],
@@ -44,6 +44,7 @@ def send_oauth(tokens):
         client_secret=twittersecret,
         resource_owner_key=tokens['access_token'],
         resource_owner_secret=tokens['access_token_secret'])
+    return oauth
 
 
 
@@ -139,6 +140,68 @@ def localizados():
     else:
         #Si no encontro lo solicitado, devolvemos un mensaje para que el usuario sea consciente de lo ocurrido.
         return template("jornadanotfound.tpl")
+
+@post('/tweet')
+def tweet():
+    get_request_token()
+    cuerpo = request.forms.get("cuerpo")
+    response.set_cookie("cuerpo", cuerpo, secret='some-secret-key')
+    authorize_url = AUTHENTICATE_URL + tokens["request_token"]
+    response.set_cookie("request_token", tokens["request_token"], secret='some-secret-key')
+    response.set_cookie("request_token_secret", tokens["request_token_secret"], secret='some-secret-key')
+    redirect(authorize_url)
+
+@get('/callback')
+def get_verifier():
+    TOKENS["request_token"]=request.get_cookie("request_token", secret='some-secret-key')
+    TOKENS["request_token_secret"]=request.get_cookie("request_token_secret", secret='some-secret-key')
+    TOKENS["verifier"] = request.query.oauth_verifier
+    get_access_token(TOKENS)
+    response.set_cookie("access_token", TOKENS["access_token"],secret='some-secret-key')
+    response.set_cookie("access_token_secret", TOKENS["access_token_secret"],secret='some-secret-key')
+    redirect('/twitit')
+
+@get('/twitit')
+def twitit():
+    if request.get_cookie("url", secret='some-secret-key'):
+      url=request.get_cookie("url", secret='some-secret-key')
+    else:
+      url="no tengo resultado"
+
+    if request.get_cookie("access_token", secret='some-secret-key'):
+      TOKENS["access_token"]=request.get_cookie("access_token", secret='some-secret-key')
+      TOKENS["access_token_secret"]=request.get_cookie("access_token_secret", secret='some-secret-key')
+      return template('twitter.tpl',url=url) 
+    else:
+      redirect('/tweet')
+
+@post('/twitit')
+def tweet_submit():
+      texto = request.forms.get("tweet")
+      TOKENS["access_token"]=request.get_cookie("access_token", secret='some-secret-key')
+      TOKENS["access_token_secret"]=request.get_cookie("access_token_secret", secret='some-secret-key')
+      print CONSUMER_KEY
+      print CONSUMER_SECRET
+      print TOKENS["access_token"]
+      print TOKENS["access_token_secret"]
+      oauth = OAuth1(CONSUMER_KEY,
+                       client_secret=CONSUMER_SECRET,
+                       resource_owner_key=TOKENS["access_token"],
+                       resource_owner_secret=TOKENS["access_token_secret"])
+      url = 'https://api.twitter.com/1.1/statuses/update.json'
+      r = requests.post(url=url,
+                          data={"status":texto},
+                          auth=oauth)
+      if r.status_code == 200:
+        redirect('/')
+      else:
+        return template ('twitnotsend.tpl')
+
+@get('/twitter_logout')
+def twitter_logout():
+      response.set_cookie("access_token", '',max_age=0)
+      response.set_cookie("access_token_secret", '',max_age=0)
+      redirect('/twitter')
 
 @route('/static/<filepath:path>')
 def server_static(filepath):
