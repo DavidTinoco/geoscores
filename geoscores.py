@@ -12,8 +12,8 @@ AUTHENTICATE_URL = "https://api.twitter.com/oauth/authenticate?oauth_token="
 ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token"
 
 futbolkey = os.environ["futbolkey"]
-twitterkey = os.environ["twitterkey"]
-twittersecret = os.environ["twittersecret"]
+twitterkey = os.environ["consumerkey"]
+twittersecret = os.environ["consumersecret"]
 
 tokens = {}
 
