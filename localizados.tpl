@@ -9,7 +9,7 @@
       var fecha = {{!fecha}}; 
       var hora = {{!hora}};
       var resultado = {{!resultado}};
-      var spain = new google.maps.LatLng(39.996775,-4.203790);
+      var spain =  new google.maps.LatLng(39.996775,-4.203790);
       var map;
       var features = [];
       map = new google.maps.Map(document.getElementById('map'), {
@@ -31,11 +31,7 @@
       '<p align="center">'+local[i]+' vs '+visitante[i]+'</p>'+
       '<p align="center">'+fecha[i]+' a las '+hora[i]+'</p>'+
       '<p align="center">'+resultado[i]+'</p>'+
-      '<form action="/tweet" method=post>'+
-      '<input type="hidden" name="cuerpo" value="El '+local[i]+' vs '+visitante[i]+
-      ' se juega/jugó el '+fecha[i]+' a las '+hora[i]+' con un resultado de '+resultado[i]+'."/>'+
-      '<input type="submit" class="button" value="Twitit"/>'+
-      '</form>'+
+      '<p><a href="/twit/'+'partido'+'">Tweet</a></p>'+
       '</div>');
             infowindow.open(map,marker);
           }
