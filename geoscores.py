@@ -28,7 +28,7 @@ def get_request_token():
     tokens["request_token"] = credentials.get('oauth_token')[0]
     tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
 
-def get_access_token():
+def get_access_token(tokens):
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
         resource_owner_key = tokens["request_token"],
