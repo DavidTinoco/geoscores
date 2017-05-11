@@ -148,9 +148,9 @@ def get_verifier():
     tokens["request_token"]=request.get_cookie("request_token", secret='some-secret-key')
     tokens["request_token_secret"]=request.get_cookie("request_token_secret", secret='some-secret-key')
     tokens["verifier"] = request.query.oauth_verifier
-    get_access_token(TOKENS)
-    response.set_cookie("access_token", TOKENS["access_token"],secret='some-secret-key')
-    response.set_cookie("access_token_secret", TOKENS["access_token_secret"],secret='some-secret-key')
+    get_access_token(tokens)
+    response.set_cookie("access_token", tokens["access_token"],secret='some-secret-key')
+    response.set_cookie("access_token_secret", tokens["access_token_secret"],secret='some-secret-key')
     redirect('/twitit')
 
 @route('/twitit')
