@@ -36,8 +36,8 @@ def get_access_token(tokens):
         verifier=tokens["verifier"],)
     r = requests.post(url=ACCESS_TOKEN_URL,auth=oauth)
     credentials = parse_qs(r.content)
-    tokens["request_token"] = credentials.get('oauth_token')[0]
-    tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
+    tokens["access_token"] = credentials.get('oauth_token')[0]
+    tokens["access_token_secret"] = credentials.get('oauth_token_secret')[0]
 
 
 #Pagina de inicio de la aplicacion
