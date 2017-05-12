@@ -25,12 +25,9 @@ def get_request_token():
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
-    print credentials.get('oauth_token')[0]
-    print credentials.get('oauth_token_secret')[0]
-
     tokens["request_token"] = credentials.get('oauth_token')[0]
     tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
-    return tokens
+
 def get_access_token(tokens):
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
@@ -140,7 +137,7 @@ def localizados():
 
 @get('/twit/<twit>')
 def twit(twit):
-    tokens=get_request_token()
+    get_request_token()
     authorize_url = AUTHENTICATE_URL + tokens["request_token"]
     response.set_cookie("twit", twit,secret="some-secret-key")
     response.set_cookie("request_token", tokens["request_token"], secret="some-secret-key")
@@ -152,7 +149,6 @@ def get_verifier():
     tokens["request_token"]=request.get_cookie("request_token", secret='some-secret-key')
     tokens["request_token_secret"]=request.get_cookie("request_token_secret", secret='some-secret-key')
     tokens["verifier"] = request.query.oauth_verifier
-    return tokens
     get_access_token(tokens)
     response.set_cookie("access_token", tokens["access_token"],secret='some-secret-key')
     response.set_cookie("access_token_secret", tokens["access_token_secret"],secret='some-secret-key')
