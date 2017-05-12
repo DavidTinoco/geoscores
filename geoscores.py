@@ -24,7 +24,7 @@ def get_request_token():
         client_secret = twittersecret,
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
-    return r.content
+    print r.content
     credentials = parse_qs(r.content)
     tokens["request_token"] = credentials.get('oauth_token')[0]
     tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
