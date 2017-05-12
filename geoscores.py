@@ -24,11 +24,13 @@ def get_request_token():
         client_secret = twittersecret,
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
-    print r.content
     credentials = parse_qs(r.content)
+    print credentials.get('oauth_token')[0]
+    print credentials.get('oauth_token_secret')[0]
+
     tokens["request_token"] = credentials.get('oauth_token')[0]
     tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
-
+    return tokens
 def get_access_token(tokens):
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
@@ -138,7 +140,7 @@ def localizados():
 
 @get('/twit/<twit>')
 def twit(twit):
-    get_request_token()
+    tokens=get_request_token()
     authorize_url = AUTHENTICATE_URL + tokens["request_token"]
     response.set_cookie("twit", twit,secret="some-secret-key")
     response.set_cookie("request_token", tokens["request_token"], secret="some-secret-key")
