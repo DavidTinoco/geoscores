@@ -33,7 +33,7 @@ def get_access_token(TOKENS):
         client_secret=twittersecret,
         resource_owner_key = TOKENS["request_token"],
         resource_owner_secret = TOKENS["request_token_secret"],
-        verifier=TOKENS["verifier"],)
+        verifier=TOKENS["verifier"])
     
     r = requests.post(url=ACCESS_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
