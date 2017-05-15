@@ -15,7 +15,7 @@ futbolkey = os.environ["futbolkey"]
 twitterkey = os.environ["consumerkey"]
 twittersecret = os.environ["consumersecret"]
 
-tokens = {}
+TOKENS = {}
 
 url_base = 'http://apiclient.resultados-futbol.com/scripts/api/api.php'
 
@@ -25,20 +25,20 @@ def get_request_token():
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
-    tokens["request_token"] = credentials.get('oauth_token')[0]
-    tokens["request_token_secret"] = credentials.get('oauth_token_secret')[0]
+    TOKENS["request_token"] = credentials.get('oauth_token')[0]
+    TOKENS["request_token_secret"] = credentials.get('oauth_token_secret')[0]
 
-def get_access_token(tokens):
+def get_access_token(TOKENS):
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
-        resource_owner_key = tokens["request_token"],
-        resource_owner_secret = tokens["request_token_secret"],
-        verifier=tokens["verifier"],)
+        resource_owner_key = TOKENS["request_token"],
+        resource_owner_secret = TOKENS["request_token_secret"],
+        verifier=TOKENS["verifier"],)
     
     r = requests.post(url=ACCESS_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
-    tokens["access_token"] = credentials.get('oauth_token')[0]
-    tokens["access_token_secret"] = credentials.get('oauth_token_secret')[0]
+    TOKENS["access_token"] = credentials.get('oauth_token')[0]
+    TOKENS["access_token_secret"] = credentials.get('oauth_token_secret')[0]
 
 
 #Pagina de inicio de la aplicacion
@@ -138,32 +138,31 @@ def localizados():
 @get('/twit/<twit>')
 def twit(twit):
     get_request_token()
-    authorize_url = AUTHENTICATE_URL + tokens["request_token"]
+    authorize_url = AUTHENTICATE_URL + TOKENS["request_token"]
     response.set_cookie("twit", twit,secret="some-secret-key")
-    response.set_cookie("request_token", tokens["request_token"], secret="some-secret-key")
-    response.set_cookie("request_token_secret", tokens["request_token_secret"], secret="some-secret-key")
+    response.set_cookie("request_token", TOKENS["request_token"], secret="some-secret-key")
+    response.set_cookie("request_token_secret", TOKENS["request_token_secret"], secret="some-secret-key")
     redirect(authorize_url)
 
 @get('/callback')
 def get_verifier():
-    tokens["request_token"]=request.get_cookie("request_token", secret='some-secret-key')
-    tokens["request_token_secret"]=request.get_cookie("request_token_secret", secret='some-secret-key')
-    tokens["verifier"] = request.query.oauth_verifier
-    return tokens
-    get_access_token(tokens)
-    response.set_cookie("access_token", tokens["access_token"],secret='some-secret-key')
-    response.set_cookie("access_token_secret", tokens["access_token_secret"],secret='some-secret-key')
+    TOKENS["request_token"]=request.get_cookie("request_token", secret='some-secret-key')
+    TOKENS["request_token_secret"]=request.get_cookie("request_token_secret", secret='some-secret-key')
+    TOKENS["verifier"] = request.query.oauth_verifier
+    get_access_token(TOKENS)
+    response.set_cookie("access_token", TOKENS["access_token"],secret='some-secret-key')
+    response.set_cookie("access_token_secret", TOKENS["access_token_secret"],secret='some-secret-key')
     redirect('/twitit')
 
 @route('/twitit')
 def enviar_tweet():
     cuerpo = request.get_cookie("twit", secret='some-secret-key')
-    tokens["access_token"]=request.get_cookie("access_token", secret='some-secret-key')
-    tokens["access_token_secret"]=request.get_cookie("access_token_secret", secret='some-secret-key')
+    TOKENS["access_token"]=request.get_cookie("access_token", secret='some-secret-key')
+    TOKENS["access_token_secret"]=request.get_cookie("access_token_secret", secret='some-secret-key')
     oauth = OAuth1(twitterkey,
         client_secret=twittersecret,
-        resource_owner_key=tokens["access_token"],
-        resource_owner_secret=tokens["access_token_secret"])
+        resource_owner_key=TOKENS["access_token"],
+        resource_owner_secret=TOKENS["access_token_secret"])
     url = 'https://api.twitter.com/1.1/statuses/update.json'
     r = requests.post(url=url,
         data={"status":cuerpo},
