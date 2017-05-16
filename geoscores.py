@@ -4,6 +4,7 @@ from lxml import etree
 import requests
 import os
 from sys import argv
+import sys
 from requests_oauthlib import OAuth1
 from urlparse import parse_qs
 
@@ -25,6 +26,8 @@ def get_request_token():
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
+    sys.stdout.write('Request token')
+    sys.stdout.write(credentials)
     TOKENS["request_token"] = credentials.get('oauth_token')[0]
     TOKENS["request_token_secret"] = credentials.get('oauth_token_secret')[0]
 
