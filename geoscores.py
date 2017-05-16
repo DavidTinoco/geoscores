@@ -26,7 +26,7 @@ def get_request_token():
         )
     r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
-    sys.stdout.write('Request token')
+    sys.stdout.write('Request token madafaka')
     sys.stdout.write(credentials)
     TOKENS["request_token"] = credentials.get('oauth_token')[0]
     TOKENS["request_token_secret"] = credentials.get('oauth_token_secret')[0]
