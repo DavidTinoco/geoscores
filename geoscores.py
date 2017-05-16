@@ -4,8 +4,9 @@ from lxml import etree
 import requests
 import os
 from sys import argv
-import sys
 from requests_oauthlib import OAuth1
+from requests_oauthlib import OAuth2Session
+from oauthlib.oauth2 import TokenExpiredError
 from urlparse import parse_qs
 
 REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token"
@@ -38,8 +39,6 @@ def get_access_token(TOKENS):
     
     r = requests.post(url=ACCESS_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
-    sys.stdout.write('Access token madafaka')
-    sys.stdout.write(r.content)
     TOKENS["access_token"] = credentials.get('oauth_token')[0]
     TOKENS["access_token_secret"] = credentials.get('oauth_token_secret')[0]
 
